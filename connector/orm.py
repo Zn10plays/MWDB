@@ -8,6 +8,7 @@ from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+from sqlalchemy import Text
 
 class Base(DeclarativeBase):
     __abstract__ = True
@@ -25,7 +26,7 @@ class Work(Base):
     url: Mapped[str] = mapped_column(String(255), unique=True)
     cover_url: Mapped[str] = mapped_column(String(400))
     cover_is_downloaded: Mapped[bool] = mapped_column(default=False)
-    cover_local_path: Optional[Mapped[str]] = mapped_column(String(255))
+    cover_local_path: Mapped[Optional[str]] = mapped_column(String(255))
 
 
     total_chapters: Mapped[int] = mapped_column(default=0)
@@ -62,7 +63,7 @@ class Chapter(Base):
     updated_at = mapped_column(DATETIME(True))
     
     # content, its assumed that its a long sting
-    content: Mapped[Optional[str]] = mapped_column(String(20_000))
+    content: Mapped[Optional[str]] = mapped_column(Text)
 
     def __repr__(self):
         return f'Chapter(id={self.id}, title={self.title}, url={self.url}, work_id={self.work_id}, work={self.work}, order={self.order}, \
