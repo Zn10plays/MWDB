@@ -1,13 +1,29 @@
-version: '3.1'
-
 services:
-  db:
+  mysqldb:
     image: mysql
     restart: always
     ports:
-      - "${DB_PORT}:3306"
+      - "${SQL_DB_PORT}:3306"
     environment:
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${SQL_DB_NAME}
+      MYSQL_ROOT_PASSWORD: ${SQL_DB_ROOT_PASSWORD}
+      MYSQL_USER: ${SQL_DB_USERNAME}
+      MYSQL_PASSWORD: ${SQL_DB_PASSWORD}
+    volumes:
+      - ${SQL_DB_VOLUME}:/var/lib/mysql
+
+  minio:
+    image: minio/minio
+    restart: always
+    ports:
+      - "${MINIO_PORT}:9000"
+      - "${MINIO_PORT_UI}:9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+    volumes:
+      - ${MINIO_DATA_VOLUME}:/data
+      - ${MINIO_CONFIG_VOLUME}:/root/.minio
+    command: server /data
