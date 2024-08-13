@@ -20,7 +20,7 @@ class Work(Base):
     title: Mapped[str] = mapped_column(String(255))
     author: Mapped[str] = mapped_column(String(255))
     description: Mapped[str] = mapped_column(String(1000))
-    genre: Mapped[List[str]] = mapped_column(String(255))
+    genre: Mapped[str] = mapped_column(String(255))
 
     url: Mapped[str] = mapped_column(String(255), unique=True)
     cover_url: Mapped[str] = mapped_column(String(400))
