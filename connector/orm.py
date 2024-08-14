@@ -96,6 +96,6 @@ class Panel(Base):
     def __repr__(self):
         return f'Panel(id={self.id}, url={self.url}, order={self.order}, chapter_id={self.chapter_id}, chapter={self.chapter}, \
                 added_at={self.added_at}, updated_at={self.updated_at}, is_credits={self.is_credits}, is_downloaded={self.is_downloaded}, \
-                local_path={self.local_path})'
+                local_path={self.local_path}), work_id={self.work_id}, work={self.work}'
     
     pass
