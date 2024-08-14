@@ -33,6 +33,7 @@ class Work(Base):
     is_completed: Mapped[bool] = mapped_column(default=False)
 
     chapters: Mapped[List['Chapter']] = relationship(back_populates='Chapter', cascade='all, delete-orphan')
+    panels: Mapped[List['Panel']] = relationship(back_populates='Panel', cascade='all, delete-orphan')
     
     added_at = mapped_column(DATETIME(True), server_default=func.now())
     updated_at = mapped_column(DATETIME(True))
@@ -77,6 +78,9 @@ class Panel(Base):
     id: Mapped[int] = mapped_column(primary_key=True, unique=True, autoincrement=True)
     url: Mapped[str] = mapped_column(String(1000))
     order: Mapped[int] = mapped_column(default=0)
+
+    work_id: Mapped[int] = mapped_column(sa.ForeignKey('Work.id'))
+    work: Mapped['Work'] = relationship('Work')
 
     chapter_id: Mapped[int] = mapped_column(sa.ForeignKey('Chapter.id'))
     chapter: Mapped['Chapter'] = relationship('Chapter', back_populates='panels')
