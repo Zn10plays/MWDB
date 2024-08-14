@@ -5,7 +5,7 @@ import os
 
 dotenv.load_dotenv()
 
-engine = create_engine(os.getenv('DATABASE_URL'), echo=True)
+engine = create_engine(os.getenv('SQL_DATABASE_URL'), echo=True)
 
 def get_session():
     return Session(bind=engine)
