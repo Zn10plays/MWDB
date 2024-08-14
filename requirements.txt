@@ -1,4 +1,4 @@
 SQLAlchemy
 python-dotenv
 mysqlclient
-s3
+minio
