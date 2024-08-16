@@ -51,7 +51,7 @@ class Chapter(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, unique=True, autoincrement=True)
     title: Mapped[str] = mapped_column(String(400))
-    url: Mapped[str] = mapped_column(String(400))
+    url: Mapped[str] = mapped_column(String(400), index=True)
 
     work_id: Mapped[int] = mapped_column(sa.ForeignKey('Work.id'))
     work: Mapped['Work'] = relationship('Work', back_populates='chapters')
@@ -76,7 +76,7 @@ class Panel(Base):
     __tablename__ = 'Panel'
 
     id: Mapped[int] = mapped_column(primary_key=True, unique=True, autoincrement=True)
-    url: Mapped[str] = mapped_column(String(1000))
+    url: Mapped[str] = mapped_column(String(1000), index=True)
     order: Mapped[int] = mapped_column(default=0)
 
     work_id: Mapped[int] = mapped_column(sa.ForeignKey('Work.id'))
