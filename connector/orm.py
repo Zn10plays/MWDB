@@ -24,9 +24,14 @@ class Work(Base):
     genre: Mapped[str] = mapped_column(String(255))
 
     url: Mapped[str] = mapped_column(String(255), unique=True)
+    complete_url: Mapped[str] = mapped_column(Text)
+    url_hash: Mapped[str] = mapped_column(String(255), index=True)
+    
     cover_url: Mapped[str] = mapped_column(String(400))
+    complete_cover_url: Mapped[str] = mapped_column(Text)
+    cover_url_hash: Mapped[str] = mapped_column(String(255), index=True)
     cover_is_downloaded: Mapped[bool] = mapped_column(default=False)
-    cover_local_path: Mapped[Optional[str]] = mapped_column(String(255))
+    cover_local_path: Mapped[Optional[str]] = mapped_column(String(500))
 
     work_type: Mapped[str] = mapped_column(String(255))
     language: Mapped[str] = mapped_column(String(255))
@@ -54,6 +59,8 @@ class Chapter(Base):
     id: Mapped[int] = mapped_column(primary_key=True, unique=True, autoincrement=True)
     title: Mapped[str] = mapped_column(String(400))
     url: Mapped[str] = mapped_column(String(400), index=True)
+    complete_url: Mapped[str] = mapped_column(Text)
+    url_hash: Mapped[str] = mapped_column(String(255), index=True)
 
     work_id: Mapped[int] = mapped_column(sa.ForeignKey('Work.id'))
     work: Mapped['Work'] = relationship('Work', back_populates='chapters')
@@ -80,6 +87,7 @@ class Panel(Base):
     id: Mapped[int] = mapped_column(primary_key=True, unique=True, autoincrement=True)
     url: Mapped[str] = mapped_column(String(600), index=True)
     complete_url: Mapped[str] = mapped_column(Text)
+    url_hash: Mapped[str] = mapped_column(String(255), index=True)
     order: Mapped[int] = mapped_column(default=0)
 
     work_id: Mapped[int] = mapped_column(sa.ForeignKey('Work.id'))
@@ -94,7 +102,7 @@ class Panel(Base):
     is_credits: Mapped[bool] = mapped_column(default=False)
 
     is_downloaded: Mapped[bool] = mapped_column(default=False)
-    local_path: Mapped[Optional[str]] = mapped_column(String(400))
+    local_path: Mapped[Optional[str]] = mapped_column(String(600))
 
     hash: Mapped[Optional[str]] = mapped_column(String(255), index=True)
     
