@@ -28,6 +28,8 @@ class Work(Base):
     cover_is_downloaded: Mapped[bool] = mapped_column(default=False)
     cover_local_path: Mapped[Optional[str]] = mapped_column(String(255))
 
+    work_type: Mapped[str] = mapped_column(String(255))
+    language: Mapped[str] = mapped_column(String(255))
 
     total_chapters: Mapped[int] = mapped_column(default=0)
     is_completed: Mapped[bool] = mapped_column(default=False)
