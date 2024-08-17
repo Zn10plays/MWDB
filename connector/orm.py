@@ -78,7 +78,8 @@ class Panel(Base):
     __tablename__ = 'Panel'
 
     id: Mapped[int] = mapped_column(primary_key=True, unique=True, autoincrement=True)
-    url: Mapped[str] = mapped_column(String(1000), index=True)
+    url: Mapped[str] = mapped_column(String(600), index=True)
+    complete_url: Mapped[str] = mapped_column(Text)
     order: Mapped[int] = mapped_column(default=0)
 
     work_id: Mapped[int] = mapped_column(sa.ForeignKey('Work.id'))
@@ -94,6 +95,8 @@ class Panel(Base):
 
     is_downloaded: Mapped[bool] = mapped_column(default=False)
     local_path: Mapped[Optional[str]] = mapped_column(String(400))
+
+    hash: Mapped[Optional[str]] = mapped_column(String(255), index=True)
     
     def __repr__(self):
         return f'Panel(id={self.id}, url={self.url}, order={self.order}, chapter_id={self.chapter_id}, chapter={self.chapter}, \
