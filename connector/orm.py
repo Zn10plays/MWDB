@@ -20,7 +20,7 @@ class Work(Base):
     id: Mapped[int] = mapped_column(primary_key=True, unique=True, autoincrement=True)
     title: Mapped[str] = mapped_column(String(255))
     author: Mapped[str] = mapped_column(String(255))
-    description: Mapped[str] = mapped_column(String(1000))
+    description: Mapped[str] = mapped_column(Text)
     genre: Mapped[str] = mapped_column(String(255))
 
     url: Mapped[str] = mapped_column(String(255), unique=True)
