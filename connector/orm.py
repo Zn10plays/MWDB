@@ -104,7 +104,7 @@ class Panel(Base):
     is_downloaded: Mapped[bool] = mapped_column(default=False)
     local_path: Mapped[Optional[str]] = mapped_column(String(600))
 
-    hash: Mapped[Optional[str]] = mapped_column(String(255), index=True)
+    cover_hash: Mapped[Optional[str]] = mapped_column(String(255), index=True)
     
     def __repr__(self):
         return f'Panel(id={self.id}, url={self.url}, order={self.order}, chapter_id={self.chapter_id}, chapter={self.chapter}, \
