@@ -32,6 +32,7 @@ class Work(Base):
     cover_url_hash: Mapped[str] = mapped_column(String(255), index=True)
     cover_is_downloaded: Mapped[bool] = mapped_column(default=False)
     cover_local_path: Mapped[Optional[str]] = mapped_column(String(500))
+    cover_hash: Mapped[Optional[str]] = mapped_column(String(256), index=True)
 
     work_type: Mapped[str] = mapped_column(String(255))
     language: Mapped[str] = mapped_column(String(255))
