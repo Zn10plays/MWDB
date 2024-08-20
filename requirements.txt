@@ -2,3 +2,4 @@ SQLAlchemy
 python-dotenv
 mysqlclient
 minio
+pillow
