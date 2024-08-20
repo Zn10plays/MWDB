@@ -2,7 +2,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, Text, DATETIME, Boolean, ForeignKey, func
 from sqlalchemy.orm.decl_api import declarative_base
 import datetime
-from typing import List
+from typing import List, Optional
 
 Base = declarative_base()
 
@@ -24,8 +24,8 @@ class Work(Base):
     complete_cover_url: Mapped[str] = mapped_column(Text)
     cover_url_hash: Mapped[str] = mapped_column(String(255), index=True)
     cover_is_downloaded: Mapped[bool] = mapped_column(default=False)
-    cover_local_path: Mapped[str] = mapped_column(String(500))
-    cover_hash: Mapped[str] = mapped_column(String(256), index=True)
+    cover_local_path: Mapped[Optional[str]] = mapped_column(String(500))
+    cover_hash: Mapped[Optional[str]] = mapped_column(String(256), index=True)
 
     work_type: Mapped[str] = mapped_column(String(255))
     language: Mapped[str] = mapped_column(String(255))
@@ -64,7 +64,7 @@ class Chapter(Base):
     added_at: Mapped[datetime] = mapped_column(DATETIME(True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(DATETIME(True))
 
-    content: Mapped[str] = mapped_column(Text)
+    content: Mapped[Optional[str]] = mapped_column(Text)
 
     def __repr__(self):
         return f'Chapter(id={self.id}, title={self.title}, url={self.url}, work_id={self.work_id}, work={self.work}, order={self.order}, \
@@ -92,9 +92,9 @@ class Panel(Base):
     is_credits: Mapped[bool] = mapped_column(default=False)
 
     is_downloaded: Mapped[bool] = mapped_column(default=False)
-    local_path: Mapped[str] = mapped_column(String(600))
+    local_path: Mapped[Optional[str]] = mapped_column(String(600))
 
-    hash: Mapped[str] = mapped_column(String(255), index=True)
+    hash: Mapped[Optional[str]] = mapped_column(String(255), index=True)
 
     def __repr__(self):
         return f'Panel(id={self.id}, url={self.url}, order={self.order}, chapter_id={self.chapter_id}, chapter={self.chapter}, \
