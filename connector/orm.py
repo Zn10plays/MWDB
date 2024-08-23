@@ -1,11 +1,10 @@
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import String, Text, DATETIME, Boolean, ForeignKey, func
+from sqlalchemy import String, Text, DateTime, Boolean, ForeignKey, func
 from sqlalchemy.orm.decl_api import declarative_base
 import datetime
 from typing import List, Optional
 
 Base = declarative_base()
-
 
 class Work(Base):
     __tablename__ = 'Work'
@@ -33,11 +32,11 @@ class Work(Base):
     total_chapters: Mapped[int] = mapped_column(default=0)
     is_completed: Mapped[bool] = mapped_column(default=False)
 
-    chapters: Mapped[List['Chapter']] = relationship(back_populates='work', cascade='all, delete-orphan')
-    panels: Mapped[List['Panel']] = relationship(back_populates='work', cascade='all, delete-orphan')
+    chapters: Mapped[List['Chapter']] = relationship('Chapter', back_populates='work', cascade='all, delete-orphan')
+    panels: Mapped[List['Panel']] = relationship('Panel', back_populates='work', cascade='all, delete-orphan')
 
-    added_at: Mapped[datetime] = mapped_column(DATETIME(True), server_default=func.now())
-    updated_at: Mapped[datetime] = mapped_column(DATETIME(True))
+    added_at: Mapped[datetime.datetime] = mapped_column(DateTime(True), server_default=func.now())
+    updated_at: Mapped[datetime.datetime] = mapped_column(DateTime(True))
 
     def __repr__(self):
         return f'Work(id={self.id}, title={self.title}, author={self.author}, description={self.description}, genre={self.genre}, \
@@ -59,10 +58,10 @@ class Chapter(Base):
 
     order: Mapped[int] = mapped_column(default=0)
 
-    panels: Mapped[List['Panel']] = relationship(back_populates='chapter', cascade='all, delete-orphan')
+    panels: Mapped[List['Panel']] = relationship('Panel', back_populates='chapter', cascade='all, delete-orphan')
 
-    added_at: Mapped[datetime] = mapped_column(DATETIME(True), server_default=func.now())
-    updated_at: Mapped[datetime] = mapped_column(DATETIME(True))
+    added_at: Mapped[datetime.datetime] = mapped_column(DateTime(True), server_default=func.now())
+    updated_at: Mapped[datetime.datetime] = mapped_column(DateTime(True))
 
     content: Mapped[Optional[str]] = mapped_column(Text)
 
@@ -86,8 +85,8 @@ class Panel(Base):
     chapter_id: Mapped[int] = mapped_column(ForeignKey('Chapter.id'))
     chapter: Mapped['Chapter'] = relationship('Chapter', back_populates='panels')
 
-    added_at: Mapped[datetime] = mapped_column(DATETIME(True), server_default=func.now())
-    updated_at: Mapped[datetime] = mapped_column(DATETIME(True))
+    added_at: Mapped[datetime.datetime] = mapped_column(DateTime(True), server_default=func.now())
+    updated_at: Mapped[datetime.datetime] = mapped_column(DateTime(True))
 
     is_credits: Mapped[bool] = mapped_column(default=False)
 
